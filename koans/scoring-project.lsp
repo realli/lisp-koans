@@ -48,10 +48,21 @@
 ; More scoring examples are given in the tests below:
 ;
 ; Your goal is to write the score method.
+(defun n-score (n num)
+  (cond 
+    ((>= n 3) (+ (if (= 1 num) 1000 (* num 100))
+                (n-score (- n 3) num)))
+    ((= 1 num) (* 100 n))
+    ((= 5 num) (* 50 n))
+    (t 0)))
 
 (defun score (dice)
   ; You need to write this method
-)
+  (let ((sums (list 0 0 0 0 0 0)))
+    (loop for i in dice
+          do (incf (nth (1- i) sums)))
+    (loop for i from 0 to 5
+          sum (n-score (nth i sums) (1+ i)))))
 
 (define-test test-score-of-an-empty-list-is-zero
     (assert-equal 0 (score nil)))

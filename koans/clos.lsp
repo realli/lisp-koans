@@ -82,8 +82,8 @@
 ;; to satisfy the test-countdowner tests.
 ;; you may be interested in the 'decf function.
 (defmethod get-value ((object countdowner))
-  (with-slot (value) object
-	     (if (< value 1)
+  (with-slots (value) object
+	     (if (<= value 1)
 		 "bang"
 		 (progn
 		   (decf value 1)
